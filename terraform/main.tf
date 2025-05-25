@@ -98,6 +98,6 @@ resource "aws_instance" "load_balancer" {
 #  /home/ec2-user/.ssh/my-key-pair
 # i/home/ec2-user/.ssh/my-key-pair.pub
 
-#web_instance = "54.196.210.190"
-#db_instance = "34.233.128.32"
-#lb_instance = "50.19.35.232"
+#app_instance = "13.61.18.57"
+#db_instance = "51.20.127.77"
+#lb_instance = "51.20.141.187"
