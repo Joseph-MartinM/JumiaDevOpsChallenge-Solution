@@ -1,0 +1,31 @@
+# tasks/main.yml
+- name: Install Docker and Docker Compose
+  import_role:
+    name: <docker_install_role_name>  # Replace with a Docker installation role
+  tags:
+    - docker_install
+
+- name: Copy docker-compose.yml
+  template:
+    src: docker-compose.yml.j2  # Jinja2 template for docker-compose.yml
+    dest: jumia_phone_validator/docker-compose.yml
+    owner: root
+    group: root
+    mode: 0644
+  tags:
+    - docker_compose_config
+
+- name: Deploy Docker Compose
+  shell: docker-compose up -d
+  args:
+    chdir: jumia_phone_validator/  # Directory containing docker-compose.yml
+  become: true
+  tags:
+    - docker_deploy
+
+- name: Verify container running
+  shell: docker ps | grep <container_name>
+  register: container_running
+  changed_on_failed: true
+  tags:
+    - docker_verify
