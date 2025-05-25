@@ -8,13 +8,13 @@ variable "project_name" {
 
 variable "availability_zone_names" {
   type    = string
-  default = "eu-west-3a"
+  default = "eu-north-1a"
 }
 
 variable "instance_type" {
   description = "EC2 Instance Type"
   type        = string
-  default     = "t2.micro"
+  default     = "t3.medium"
 }
 
 #AWS Key
@@ -24,7 +24,7 @@ variable "aws_key_pair" {
 
 variable "key_name" {
   description = "Name of the private key to used for SSH"
-  type = string
-  default = "my-key-pair"
-  
+  type        = string
+  default     = "my-key-pair"
+
 }

@@ -2,17 +2,17 @@ data "aws_ami" "ubuntu_ami" {
   most_recent = true
 
   filter {
-    name = "name"
+    name   = "name"
     values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
   }
 
-  filter{
-    name = "virtualization-type"
+  filter {
+    name   = "virtualization-type"
     values = ["hvm"]
   }
-#change accout_id
+  #change accout_id
   owners = ["amazon"]
-  
+
 }
 
 # ssh public key
