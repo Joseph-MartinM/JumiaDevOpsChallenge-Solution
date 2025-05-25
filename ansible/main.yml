@@ -2,7 +2,8 @@
 - hosts: all
   become: yes
   gather_facts: false
-
+  vars_files:
+    - roles/postgresql/vars/vars.yml
 
   tasks:
     - name: Install Updates
