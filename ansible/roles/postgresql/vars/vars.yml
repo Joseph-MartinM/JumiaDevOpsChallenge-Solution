@@ -1,0 +1,42 @@
+postgresql_options:
+  - name: listen_addresses
+    value: "*"
+  - name: logging_collector
+    value: "off"
+  - name: work_mem
+    value: '64MB'
+  - name: shared_buffers
+    value: '256MB'
+
+postgresql_databases:
+  - db1
+
+postgresql_users:
+  - db: db1
+    name: josephm
+    password: "SasaKenya980120"
+
+postgresql_schemas:
+  - db: db1
+    name: josephm
+    owner: josephm
+
+postgresql_privs:
+  - db: db1
+    roles: josephm
+    privs: ALL
+    type: database
+
+postgresql_hba_entries:
+  - contype: host
+    databases: all
+    users: all
+    address: 0.0.0.0/0
+    method: scram-sha-256
+
+postgresql_extensions:
+  - db: db1
+    name: hstore
+
+# Database to load sample.sql into
+postgresql_sample_db: db1
