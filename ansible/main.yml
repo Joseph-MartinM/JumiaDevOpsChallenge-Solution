@@ -52,3 +52,9 @@
     - roles/postgresql/vars/vars.yml
   roles:
     - postgresql
+
+- hosts: load_balancer
+  vars_files:
+    - roles/load_balancer/vars/vars.yml
+  roles:
+    - load_balancer
