@@ -1,4 +1,28 @@
 ---
+- name: "Permit HTTP connection to port 80"
+  ufw:
+    rule: allow
+    port: 80
+    proto: tcp
+
+- name: "Permit HTTPS connection to port 443"
+  ufw:
+    rule: allow
+    port: 443
+    proto: tcp
+
+- name: "Permit SSH"
+  ufw:
+    rule: allow
+    port: "{{ ssh_port }}"
+    proto: tcp
+
+- name: "Enable firewall"
+  ufw:
+    state: enabled
+    policy: deny
+    direction: incoming
+
 # tasks file for nginx
 - name: install components
   yum: name={{item}} state=installed
