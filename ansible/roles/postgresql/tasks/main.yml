@@ -17,11 +17,15 @@
     state: enabled
     policy: deny
     direction: incoming
-- name: Install PostgreSQL and psycopg2
-  ansible.builtin.dnf:
-    name: postgresql-server,postgresql-contrib,python3-psycopg2
-    state: present
-    update_cache: true
+    
+- name: "Install Postgresql dependencies"
+  apt:
+    name: ["bash", "openssl", "libssl-dev", "libssl-doc"]
+    state: latest
+
+- name: "Install Postgresql"
+  apt:
+    name: ["postgresql", "postgresql-contrib", "libpq-dev", "python3-psycopg2"]
 
 - name: Create the cluster
   ansible.builtin.command:
