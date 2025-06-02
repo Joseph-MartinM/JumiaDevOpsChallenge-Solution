@@ -13,3 +13,8 @@ output "lb_instance" {
   description = "Public IP of Load Balancer EC2 Instance"
   value       = aws_instance.load_balancer.public_ip
 }
+output "devops_vpc" {
+  description = "vpc Id"
+  value = aws_vpc.devops_vpc.id
+  
+}
