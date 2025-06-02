@@ -45,31 +45,6 @@ resource "aws_instance" "application" {
 
 }
 
-
-# DB EC2 Instance
-resource "aws_instance" "database" {
-  ami                    = data.aws_ami.ubuntu_ami.id
-  key_name               = var.key_name
-  instance_type          = var.instance_type
-  availability_zone      = var.availability_zone_names
-  vpc_security_group_ids = [aws_security_group.db_sg.id]
-  subnet_id              = aws_subnet.db_subnet.id
-  user_data              = file("ssh_conf.sh")
-
-  connection {
-    type        = "ssh"
-    host        = self.public_ip
-    user        = "ubuntu"
-    private_key = file(var.aws_key_pair)
-  }
-
-  tags = {
-    Name = "DB_Server"
-  }
-
-}
-
-
 # Load Balancer EC2 Instance
 resource "aws_instance" "load_balancer" {
   ami                    = data.aws_ami.ubuntu_ami.id
@@ -88,7 +63,7 @@ resource "aws_instance" "load_balancer" {
   }
 
   tags = {
-    Name = "LB_Server"
+    Name = "LoadBalancer_Server"
   }
 
 }
