@@ -27,10 +27,10 @@ resource "aws_instance" "application" {
   ami                    = data.aws_ami.ubuntu_ami.id
   key_name               = var.key_name
   instance_type          = var.instance_type
-  availability_zone      = var.availability_zone_names
+  availability_zone      = var.availability_zone_names2
   vpc_security_group_ids = [aws_security_group.app_sg.id]
   subnet_id              = aws_subnet.devops_public_subnet.id
-  user_data              = file("ssh_conf.sh")
+  user_data              = file("/home/ec2-user/rds/modules/rds/ssh_conf.sh")
 
   connection {
     type        = "ssh"
@@ -50,10 +50,10 @@ resource "aws_instance" "load_balancer" {
   ami                    = data.aws_ami.ubuntu_ami.id
   key_name               = var.key_name
   instance_type          = var.instance_type
-  availability_zone      = var.availability_zone_names
+  availability_zone      = var.availability_zone_names1
   vpc_security_group_ids = [aws_security_group.permit_web_traffic.id]
   subnet_id              = aws_subnet.devops_public_subnet.id
-  user_data              = file("ssh_conf.sh")
+  user_data              = file("/home/ec2-user/rds/modules/rds/ssh_conf.sh")
 
   connection {
     type        = "ssh"
@@ -67,7 +67,6 @@ resource "aws_instance" "load_balancer" {
   }
 
 }
-
 
 
 #  /home/ec2-user/.ssh/my-key-pair

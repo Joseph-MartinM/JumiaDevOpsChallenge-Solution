@@ -1,3 +1,16 @@
+variable "region" {
+  description = "Us region to be sued by the provider"  
+  type = string
+  default = "us-east-1"
+
+}
+
+variable "port" {
+  description = "The port on which the DB accepts connections"
+  type        = string
+  default     = "5432"
+}
+
 # Project Name
 variable "project_name" {
   description = "Project Name"
@@ -6,9 +19,19 @@ variable "project_name" {
 
 }
 
-variable "availability_zone_names" {
+variable "availability_zone_names1" {
   type    = string
-  default = "eu-north-1a"
+  default = "us-east-1a"
+}
+
+variable "availability_zone_names2" {
+  type    = string
+  default = "us-east-1b"
+}
+
+variable "availability_zone_names3" {
+  type    = string
+  default = "us-east-1c"
 }
 
 variable "instance_type" {

@@ -1,63 +1,63 @@
 # VPC
-resource "aws_vpc" "devops_vpc" {
+resource "aws_vpc" "my_vpc" {
   cidr_block       = "172.20.0.0/16"
   instance_tenancy = "default"
 
   tags = {
-    Name = "VPC-${var.project_name}"
+    Name = var.project_name
   }
 }
 
 # Internet Gateway
 resource "aws_internet_gateway" "devops_igw" {
-  vpc_id = aws_vpc.devops_vpc.id
+  vpc_id = aws_vpc.my_vpc.id
 
   tags = {
-    Name = "IGW-${var.project_name}"
+    Name = var.project_name
   }
 }
 
 # Public Subnet
 resource "aws_subnet" "devops_public_subnet" {
-  vpc_id                  = aws_vpc.devops_vpc.id
+  vpc_id                  = aws_vpc.my_vpc.id
   cidr_block              = "172.20.1.0/24"
-  availability_zone       = var.availability_zone_names
+  availability_zone       = var.availability_zone_names1
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "public_subnet"
+    Name = "public_subnet-DevOps_Challenge"
   }
 }
 
 # Public Subnet for the App
 
 resource "aws_subnet" "app_subnet" {
-  vpc_id                  = aws_vpc.devops_vpc.id
+  vpc_id                  = aws_vpc.my_vpc.id
   cidr_block              = "172.20.2.0/24"
-  availability_zone       = var.availability_zone_names
+  availability_zone       = var.availability_zone_names2
   map_public_ip_on_launch = false
 
   tags = {
-    Name = "app_subnet"
+    Name = "app_subnet-DevOps_Challenge"
   }
 }
 
 # Database Public Subnet
 resource "aws_subnet" "db_subnet" {
-  vpc_id                  = aws_vpc.devops_vpc.id
+  vpc_id                  = aws_vpc.my_vpc.id
   cidr_block              = "172.20.3.0/24"
-  availability_zone       = var.availability_zone_names
+  availability_zone       = var.availability_zone_names3
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "db_subnet"
+    Name = "db_subnet-DevOps_Challenge"
   }
 }
 
 
 # Route Table
 resource "aws_route_table" "devops_rt" {
-  vpc_id = aws_vpc.devops_vpc.id
+  vpc_id = aws_vpc.my_vpc.id
 
   route {
     cidr_block = "0.0.0.0/0"
@@ -65,7 +65,7 @@ resource "aws_route_table" "devops_rt" {
   }
 
   tags = {
-    Name = "public_rt-${var.project_name}"
+    Name = "public_rt-DevOps_Challenge"
   }
 }
 
@@ -85,7 +85,7 @@ resource "aws_route_table_association" "db_rt_assoc" {
 resource "aws_security_group" "permit_web_traffic" {
   name        = "permit_web_traffic"
   description = "Permit Inbound HTTP traffic"
-  vpc_id      = aws_vpc.devops_vpc.id
+  vpc_id      = aws_vpc.my_vpc.id
 
   ingress {
     description = "Global HTTP Access"
@@ -129,7 +129,7 @@ resource "aws_security_group" "permit_web_traffic" {
 resource "aws_security_group" "app_sg" {
   name        = "app_sg"
   description = "Permit inbound TCP traffic from LB"
-  vpc_id      = aws_vpc.devops_vpc.id
+  vpc_id      = aws_vpc.my_vpc.id
 
   ingress {
     description     = "HTTP from LB"
@@ -179,15 +179,15 @@ resource "aws_security_group" "app_sg" {
 }
 
 # DB Security Group
-resource "aws_security_group" "db_sg" {
-  name        = "db_sg"
+resource "aws_security_group" "rds_sg" {
+  name_prefix = "rds-"
   description = "Permit microservice inbout traffic"
-  vpc_id      = aws_vpc.devops_vpc.id
+  vpc_id      = aws_vpc.my_vpc.id
 
   ingress {
     description     = "Permit Microservice TCP Traffic"
-    from_port       = 5432
-    to_port         = 5432
+    from_port       = var.port
+    to_port         = var.port
     protocol        = "tcp"
     security_groups = [aws_security_group.app_sg.id]
   }
@@ -208,7 +208,16 @@ resource "aws_security_group" "db_sg" {
   }
 
   tags = {
-    Name = "db_sg"
+    Name = "rds_sg"
   }
 
+}
+
+resource "aws_db_subnet_group" "my_db_subnet_group" {
+  name       = "my-db-subnet-group"
+  subnet_ids = [aws_subnet.app_subnet.id, aws_subnet.db_subnet.id]
+
+  tags = {
+    Name = "My DB Subnet Group"
+  }
 }
