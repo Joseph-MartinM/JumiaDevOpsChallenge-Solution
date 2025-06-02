@@ -1,13 +1,10 @@
-module "vms_network" {
+module "vpc" {
 
-    source = "./modules/ec2_networks"
+    source = "./modules/vpc"
   
 }
 
-module "vpc" {
-
-    source = "./modules/ec2_networks/networks.tf"
-    
-    
+module "rds" {
+    source = "./modules/rds"
   
 }
