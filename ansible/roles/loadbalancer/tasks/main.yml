@@ -1,0 +1,66 @@
+- name: Install the nginx package on the target servers
+  apt:
+    name: "{{ nginx_pkg }}"
+    state:  latest
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: Install Certificate prerequisites on the target servers
+  apt:
+    name: "{{ cert_pre }}"
+    state:  latest
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: Create the directory required for caching on the target servers
+  file:
+    name: "{{ cache_dir }}"
+    state:  directory
+    mode: '0777'
+
+- name: Delete the existing nginx custom config file from the target servers
+  file:
+    name: "{{ nginx_cust_config_file }}"
+    state:  absent
+
+- name: Copy the nginx custom config file to the target servers
+  template:
+    src:  "{{ local_cust_config_file }}"
+    dest: "{{ nginx_cust_config_file }}"
+    mode: '0777'
+    owner:  root
+    group:  root
+  notify: Restart nginx
+
+- name: Enable the firewall with a default deny
+  ufw:
+    state: enabled
+    policy: deny
+
+- name: Allow http(port 80) traffic
+  ufw:
+    rule: allow
+    port: 80
+    proto:  tcp
+  notify: Reload firewall
+
+- name: Allow https(port 443) traffic
+  ufw:
+    rule: allow
+    port: 443
+    proto:  tcp
+  notify: Reload firewall
+
+- name: Allow ssh(port 22) traffic
+  ufw:
+    rule: allow
+    port: 22
+    proto:  tcp
+  notify: Reload firewall
+    
+
+- name: Allow ssh from specific host
+  lineinfile:
+    line:  "{{ allowed_ssh_host }}"
+    path: /etc/hosts.allow
+  notify: Restart ssh

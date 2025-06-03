@@ -1,0 +1,18 @@
+---
+
+tzone:  UTC
+username: devopsuser
+nginx_pkg:  nginx
+cert_pre: 
+- certbot 
+- python3-certbot-nginx
+cache_dir:  /nginx_cache
+nginx_cust_config_file: /etc/nginx/sites-enabled/default
+srv_adm_email:  josephmartinrga@gmail.com
+gen_cert: "sudo certbot run -n --nginx --agree-tos -d {{ inventory_hostname }} -m  {{ srv_adm_email }}  --no-redirect"
+allowed_ssh_host: "sshd: admin.mirrors.gg"
+nginx_svc:  nginx
+ssh_svc:  sshd
+copy_local_key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC4EL9PrcpTO5WkP/JysmY6ezfp3a6TOg+WTDkuLBme/kBJJUmC8vLWzICzYHU3xlcDe2nQCgbUQTwllhN4xrBRXgT9b3Wm66qLiw0QBsBPbY2r9Sr4KQzeSysUreMoDBGiGLabbQ8tGWGkxjxOXVvEFqbySht2ZcsCKLwCiLJ/ngg8xirbnbO5QQ9WqGUXBh90wUd0xImAjOZ16e5qVaMUJrbR0JQY2kd1h0cZz6PwD5GUBbnO204Yp3Z3yQhZfRAO/LgEk7OUPp06Wmv+48c9VIDEUB5ZBR3zd3ooNoyipR3okMz0YoFUpif28enzSiSco3JtjLWR3nzqCEJ1Zkdj ec2-user@ip-172-31-42-6.ec2.internal"
+local_cust_config_file: nginx_custom.j2
+cache_ttl:  240m

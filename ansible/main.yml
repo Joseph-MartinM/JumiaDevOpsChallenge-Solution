@@ -1,4 +1,40 @@
 ---
+- name: Playbook to setup caching servers with NGINX
+  hosts:  all
+  vars_files:
+    - play_vars.yml
+  serial: 3
+  tasks:
+
+    - name: Add the required user to the target servers
+      user:
+        name: "{{ username }}"
+        state:  present
+
+    - name: Grant user super user privileges to the newly added user
+      copy:
+        content:  "{{ username }} ALL=(ALL:ALL) NOPASSWD:ALL"
+        dest: "/etc/sudoers.d/{{ username }}"
+        mode: 0440
+
+    - name: Set authorized keys to the newly user
+      authorized_key:
+        user: "{{ username }}"
+        state:  present
+        key:  "{{ copy_local_key }}"
+
+    - name: Disable password authentication root
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        state: present
+        regexp: "^#?PermissionRootLogin"
+        line: "PermitRootLogin prohibit-password"
+
+    - name: Install required system packages
+      apt:
+        name: "{{ sys_packages }}"
+        state: latest
+
 - name: Deploy Docker Container with Docker Compose
   hosts: web_servers
   become: true
@@ -7,5 +43,12 @@
     - common
     - docker
     - docker_image
-    - nginx_web
     - docker_compose
+
+- name: Playbook to setup caching servers with NGINX
+  hosts:  load_balancer
+  vars_files:
+    - play_vars.yml
+
+  roles:
+    - loadbalancer

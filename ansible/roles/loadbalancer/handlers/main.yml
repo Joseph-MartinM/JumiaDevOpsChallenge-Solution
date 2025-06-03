@@ -1,0 +1,13 @@
+- name: Restart nginx
+  service:
+    name: "{{ nginx_svc }}"
+    state:  restarted
+
+- name: Reload firewall
+  ufw:
+     state:  reloaded
+      
+- name: Restart ssh
+  service:
+    name: "{{ ssh_svc }}"
+    state:  restarted
