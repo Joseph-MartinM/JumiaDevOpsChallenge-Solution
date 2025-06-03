@@ -1,5 +1,5 @@
 module "vpc" {
-  source = "../vpc"
+  source = "../network"
 
 }
 resource "aws_db_instance" "default" {
