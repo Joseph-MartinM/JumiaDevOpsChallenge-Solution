@@ -14,7 +14,7 @@ variable "port" {
 variable "sshport" {
   description = "The port that accepts ssh connections"
   type        = string
-  default     = "22"
+  default     = "1337"
 }
 
 variable "httpsport" {
