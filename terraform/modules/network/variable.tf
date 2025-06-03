@@ -90,7 +90,7 @@ variable "key_name" {
 
 #User Data location
 variable "user_data_location" {
-  default = "/home/ec2-user/rds/modules/rds/ssh_conf.sh"
+  default = "../terraform/modules/network/ssh_conf.sh"
 }
 
 #Public Key location
