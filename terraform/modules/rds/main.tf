@@ -36,12 +36,13 @@ resource "aws_db_instance" "default" {
   multi_az = var.multi_az
 }
 
-resource "aws_db_instance_automated_backups_replication" "default" {
-  source_db_instance_arn = aws_db_instance.default.arn
-  retention_period       = var.retention_period
-  kms_key_id             = aws_kms_key.my_kms_key.arn
+#Disable feature not support in the region
+#resource "aws_db_instance_automated_backups_replication" "default" {
+#  source_db_instance_arn = aws_db_instance.default.arn
+#  retention_period       = var.retention_period
+#  kms_key_id             = aws_kms_key.my_kms_key.arn
 
-}
+#}
 
 resource "aws_kms_key" "my_kms_key" {
   description             = "My KMS Key for RDS Encryption"
