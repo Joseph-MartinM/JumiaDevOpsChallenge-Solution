@@ -112,6 +112,14 @@ resource "aws_security_group" "permit_web_traffic" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  ingress {
+    description = "GLobal SSH Access2"
+    from_port   = var.sshport2
+    to_port     = var.sshport2
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   egress {
     from_port   = var.internetport
     to_port     = var.internetport
@@ -161,6 +169,14 @@ resource "aws_security_group" "app_sg" {
     description = "SSH from LB"
     from_port   = var.sshport
     to_port     = var.sshport
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    description = "GLobal SSH Access2"
+    from_port   = var.sshport2
+    to_port     = var.sshport2
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
