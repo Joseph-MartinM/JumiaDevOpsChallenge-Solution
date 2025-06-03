@@ -1,7 +1,7 @@
 variable "region" {
   description = "Us region to be sued by the provider"  
   type = string
-  default = "us-east-1"
+  default = "eu-north-1"
 
 }
 
@@ -57,17 +57,17 @@ variable "project_name" {
 
 variable "availability_zone_names1" {
   type    = string
-  default = "us-east-1a"
+  default = "eu-north-1a"
 }
 
 variable "availability_zone_names2" {
   type    = string
-  default = "us-east-1b"
+  default = "eu-north-1b"
 }
 
 variable "availability_zone_names3" {
   type    = string
-  default = "us-east-1c"
+  default = "eu-north-1c"
 }
 
 variable "instance_type" {

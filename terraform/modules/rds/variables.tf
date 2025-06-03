@@ -187,6 +187,6 @@ variable "db_instance_tags" {
 variable "region" {
   description = "The region to be used by the provider"  
   type = string
-  default = "us-east-1"
+  default = "eu-north-1"
 
 }
