@@ -27,7 +27,7 @@ resource "aws_instance" "application" {
   ami                    = data.aws_ami.ubuntu_ami.id
   key_name               = var.key_name
   instance_type          = var.instance_type
-  availability_zone      = var.availability_zone_names2
+  availability_zone      = var.availability_zone_names1
   vpc_security_group_ids = [aws_security_group.app_sg.id]
   subnet_id              = aws_subnet.devops_public_subnet.id
   user_data              = file(var.user_data_location)
