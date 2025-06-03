@@ -60,6 +60,11 @@ variable "availability_zone_names1" {
   default = "eu-north-1a"
 }
 
+variable "availability_zone_names2" {
+  type    = string
+  default = "eu-north-1b"
+}
+
 variable "instance_type" {
   description = "EC2 Instance Type"
   type        = string

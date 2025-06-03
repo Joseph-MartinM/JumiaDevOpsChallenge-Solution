@@ -42,11 +42,11 @@ resource "aws_subnet" "app_subnet" {
   }
 }
 
-# Database Public Subnet
+# Database PSubnet
 resource "aws_subnet" "db_subnet" {
   vpc_id                  = aws_vpc.my_vpc.id
   cidr_block              = "172.20.3.0/24"
-  availability_zone       = var.availability_zone_names1
+  availability_zone       = var.availability_zone_names2
   map_public_ip_on_launch = true
 
   tags = {
