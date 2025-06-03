@@ -1,10 +1,10 @@
 module "vpc" {
 
-    source = "./modules/vpc"
-  
+  source = "./modules/vpc"
+
 }
 
 module "rds" {
-    source = "./modules/rds"
-  
+  source = "./modules/rds"
+
 }

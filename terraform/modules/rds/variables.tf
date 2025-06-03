@@ -31,7 +31,7 @@ variable "instance_class" {
 variable "identifier" {
   description = "The name of the RDS instance"
   type        = string
-  default = "jumiabb"
+  default     = "jumiabb"
 }
 
 variable "username" {
@@ -185,8 +185,8 @@ variable "db_instance_tags" {
 }
 
 variable "region" {
-  description = "The region to be used by the provider"  
-  type = string
-  default = "eu-north-1"
+  description = "The region to be used by the provider"
+  type        = string
+  default     = "eu-north-1"
 
 }

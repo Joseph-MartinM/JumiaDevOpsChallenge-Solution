@@ -1,20 +1,20 @@
 output "my_db_subnet_group" {
   description = "Getting subnet group to be used by the rds db instance to created"
-  value = aws_db_subnet_group.my_db_subnet_group.name
+  value       = aws_db_subnet_group.my_db_subnet_group.name
 }
 
 output "my_vpc" {
 
-    description = "Getting vpc id to be used for creating sg"
-    value = aws_vpc.my_vpc.id
-  
+  description = "Getting vpc id to be used for creating sg"
+  value       = aws_vpc.my_vpc.id
+
 }
 
 output "security_group_id" {
 
-    description = "Output security group id"
-    value = aws_security_group.rds_sg.id
-  
+  description = "Output security group id"
+  value       = aws_security_group.rds_sg.id
+
 }
 
 output "app_instance" {
@@ -29,15 +29,15 @@ output "lb_instance" {
 }
 output "devops_vpc" {
   description = "vpc Id"
-  value = aws_vpc.my_vpc.id
-  
+  value       = aws_vpc.my_vpc.id
+
 }
 output "db_subnet" {
   description = "Database subnet"
-  value = aws_subnet.db_subnet
+  value       = aws_subnet.db_subnet
 }
 output "db_sg" {
   description = "Database security group"
-  value = aws_security_group.rds_sg
-  
+  value       = aws_security_group.rds_sg
+
 }

@@ -1,7 +1,7 @@
 variable "region" {
-  description = "Us region to be sued by the provider"  
-  type = string
-  default = "eu-north-1"
+  description = "Us region to be sued by the provider"
+  type        = string
+  default     = "eu-north-1"
 
 }
 
