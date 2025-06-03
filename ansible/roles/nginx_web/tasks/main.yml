@@ -1,0 +1,23 @@
+- name: Create a directory for Docker Compose files
+  file:
+    path: /home/ubuntu/ansible-docker/docker-compose
+    state: directory
+    mode: '0755'
+    owner: ubuntu
+    group: ubuntu
+
+- name: Create a directory for Nginx website files
+  file:
+    path: /home/ubuntu/docker/nginx/web
+    state: directory
+    mode: '0755'
+    owner: ubuntu
+    group: ubuntu
+
+- name: Copy Nginx website folder to remote host
+  copy:
+    src: /home/ubuntu/ansible/website
+    dest: /home/ubuntu/docker/nginx/web
+    mode: '0755'
+    owner: ubuntu
+    group: ubuntu

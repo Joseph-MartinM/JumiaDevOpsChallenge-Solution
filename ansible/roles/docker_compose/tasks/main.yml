@@ -1,0 +1,12 @@
+- name: Copy docker-compose file to remote host
+  copy:
+    src: /home/ubuntu/ansible/docker-compose.yml
+    dest: /home/ubuntu/ansible-docker/docker-compose/docker-compose.yaml
+    mode: '0755'
+    owner: ubuntu
+    group: ubuntu
+
+- name: Start Docker Compose project
+  community.docker.docker_compose_v2:
+    project_src: /home/ubuntu/ansible-docker/docker-compose
+    state: present

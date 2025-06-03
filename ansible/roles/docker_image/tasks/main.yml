@@ -1,0 +1,4 @@
+- name: Pull nginx:alpine image
+  community.docker.docker_image_pull:
+    name: nginx
+    tag: alpine
