@@ -18,7 +18,7 @@ data "aws_ami" "ubuntu_ami" {
 # ssh public key
 resource "aws_key_pair" "devops-key" {
   key_name   = var.key_name
-  public_key = file("/home/ec2-user/.ssh/my-key-pair.pub")
+  public_key = file(var.public_key_location)
 }
 
 
@@ -30,7 +30,7 @@ resource "aws_instance" "application" {
   availability_zone      = var.availability_zone_names2
   vpc_security_group_ids = [aws_security_group.app_sg.id]
   subnet_id              = aws_subnet.devops_public_subnet.id
-  user_data              = file("/home/ec2-user/rds/modules/rds/ssh_conf.sh")
+  user_data              = file(var.user_data_location)
 
   connection {
     type        = "ssh"
@@ -53,7 +53,7 @@ resource "aws_instance" "load_balancer" {
   availability_zone      = var.availability_zone_names1
   vpc_security_group_ids = [aws_security_group.permit_web_traffic.id]
   subnet_id              = aws_subnet.devops_public_subnet.id
-  user_data              = file("/home/ec2-user/rds/modules/rds/ssh_conf.sh")
+  user_data              = file(var.user_data_location)
 
   connection {
     type        = "ssh"

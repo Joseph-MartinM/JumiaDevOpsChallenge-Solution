@@ -87,3 +87,13 @@ variable "key_name" {
   default     = "my-key-pair"
 
 }
+
+#User Data location
+variable "user_data_location" {
+  default = "/home/ec2-user/rds/modules/rds/ssh_conf.sh"
+}
+
+#Public Key location
+variable "public_key_location" {
+  default = "/home/ec2-user/.ssh/my-key-pair.pub"
+}
