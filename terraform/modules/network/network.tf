@@ -89,8 +89,8 @@ resource "aws_security_group" "permit_web_traffic" {
 
   ingress {
     description = "Global HTTP Access"
-    from_port   = 80
-    to_port     = 80
+    from_port   = var.httpport
+    to_port     = var.httpport
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
 
@@ -98,23 +98,23 @@ resource "aws_security_group" "permit_web_traffic" {
 
   ingress {
     description = "Global HTTPS Acess"
-    from_port   = 443
-    to_port     = 443
+    from_port   = var.httpsport
+    to_port     = var.httpsport
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
   ingress {
     description = "GLobal SSH Access"
-    from_port   = 22
-    to_port     = 22
+    from_port   = var.sshport
+    to_port     = var.sshport
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
   egress {
-    from_port   = 0
-    to_port     = 0
+    from_port   = var.internetport
+    to_port     = var.internetport
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
@@ -133,16 +133,16 @@ resource "aws_security_group" "app_sg" {
 
   ingress {
     description     = "HTTP from LB"
-    from_port       = 80
-    to_port         = 80
+    from_port       = var.httpport
+    to_port         = var.httpport
     protocol        = "tcp"
     security_groups = [aws_security_group.permit_web_traffic.id]
   }
 
   ingress {
     description     = "UI Access from LB"
-    from_port       = 8080
-    to_port         = 8080
+    from_port       = var.customlb1port
+    to_port         = var.customlb1port
     protocol        = "tcp"
     security_groups = [aws_security_group.permit_web_traffic.id]
 
@@ -150,8 +150,8 @@ resource "aws_security_group" "app_sg" {
 
   ingress {
     description     = "API Access from LB"
-    from_port       = 8081
-    to_port         = 8081
+    from_port       = var.customlb2port
+    to_port         = var.customlb2port
     protocol        = "tcp"
     security_groups = [aws_security_group.permit_web_traffic.id]
 
@@ -159,15 +159,15 @@ resource "aws_security_group" "app_sg" {
 
   ingress {
     description = "SSH from LB"
-    from_port   = 22
-    to_port     = 22
+    from_port   = var.sshport
+    to_port     = var.sshport
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
   egress {
-    from_port   = 0
-    to_port     = 0
+    from_port   = var.internetport
+    to_port     = var.internetport
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
@@ -192,17 +192,9 @@ resource "aws_security_group" "rds_sg" {
     security_groups = [aws_security_group.app_sg.id]
   }
 
-  ingress {
-    description = "Permit SSH"
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
   egress {
-    from_port   = 0
-    to_port     = 0
+    from_port   = var.internetport
+    to_port     = var.internetport
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }

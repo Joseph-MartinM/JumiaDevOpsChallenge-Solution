@@ -11,6 +11,42 @@ variable "port" {
   default     = "5432"
 }
 
+variable "sshport" {
+  description = "The port that accepts ssh connections"
+  type        = string
+  default     = "22"
+}
+
+variable "httpsport" {
+  description = "The port that  accepts https connections"
+  type        = string
+  default     = "443"
+}
+
+variable "httpport" {
+  description = "The port that  accepts https connections"
+  type        = string
+  default     = "80"
+}
+
+variable "internetport" {
+  description = "The port that  accepts all connections"
+  type        = string
+  default     = "0"
+}
+
+variable "customlb1port" {
+  description = "The port that  accepts custom lb 8080 connections"
+  type        = string
+  default     = "8080"
+}
+
+variable "customlb2port" {
+  description = "The port that  accepts custom lb 8081 connections"
+  type        = string
+  default     = "8081"
+}
+
 # Project Name
 variable "project_name" {
   description = "Project Name"
