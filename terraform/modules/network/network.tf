@@ -34,7 +34,7 @@ resource "aws_subnet" "devops_public_subnet" {
 resource "aws_subnet" "app_subnet" {
   vpc_id                  = aws_vpc.my_vpc.id
   cidr_block              = "172.20.2.0/24"
-  availability_zone       = var.availability_zone_names2
+  availability_zone       = var.availability_zone_names1
   map_public_ip_on_launch = false
 
   tags = {
@@ -46,7 +46,7 @@ resource "aws_subnet" "app_subnet" {
 resource "aws_subnet" "db_subnet" {
   vpc_id                  = aws_vpc.my_vpc.id
   cidr_block              = "172.20.3.0/24"
-  availability_zone       = var.availability_zone_names3
+  availability_zone       = var.availability_zone_names1
   map_public_ip_on_launch = true
 
   tags = {
